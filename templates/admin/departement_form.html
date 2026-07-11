@@ -1,0 +1,30 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}{{ "Modifier" if item else "Ajouter" }} un département{% endblock %}
+{% block page_title %}{{ "Modifier" if item else "Ajouter" }} un département{% endblock %}
+
+{% block admin_content %}
+<div class="form-card">
+  <form method="POST">
+    <div class="form-group">
+      <label for="nom">Nom du département *</label>
+      <input type="text" id="nom" name="nom" required value="{{ item.nom if item else '' }}">
+    </div>
+    <div class="form-group">
+      <label for="description">Description *</label>
+      <textarea id="description" name="description" required>{{ item.description if item else '' }}</textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="responsable">Responsable</label>
+        <input type="text" id="responsable" name="responsable" value="{{ item.responsable if item else '' }}">
+      </div>
+      <div class="form-group">
+        <label for="contact">Contact</label>
+        <input type="text" id="contact" name="contact" value="{{ item.contact if item else '' }}">
+      </div>
+    </div>
+    <button type="submit" class="btn btn-gold btn-block">{{ "Enregistrer les modifications" if item else "Créer le département" }}</button>
+    <a href="{{ url_for('admin_departements') }}" class="btn btn-block" style="margin-top:10px; text-align:center; border:1px solid var(--grey-line);">Annuler</a>
+  </form>
+</div>
+{% endblock %}

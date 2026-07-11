@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{{ formation.nom }}{% endblock %}
+
+{% block content %}
+<div class="detail-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="{{ url_for('formations') }}">Formations</a> / {{ formation.nom }}</div>
+    <span class="eyebrow">{{ formation.niveau }}</span>
+    <h1>{{ formation.nom }}</h1>
+  </div>
+</div>
+
+<section class="detail-body">
+  <div class="container">
+    <div class="content">
+      <ul class="info-list">
+        <li><span>Niveau</span><span>{{ formation.niveau }}</span></li>
+        <li><span>Durée</span><span>{{ formation.duree }}</span></li>
+        <li><span>Département</span><span>{{ formation.departement_nom or "—" }}</span></li>
+        <li><span>Conditions d'admission</span><span>{{ formation.conditions_admission }}</span></li>
+        <li><span>Débouchés</span><span>{{ formation.debouches }}</span></li>
+      </ul>
+
+      <h2>Programme détaillé</h2>
+      {% if formation.programme %}
+        {% for ligne in formation.programme.split('\n') %}
+          <p>{{ ligne }}</p>
+        {% endfor %}
+      {% else %}
+        <p>Programme non renseigné.</p>
+      {% endif %}
+
+      <div style="margin-top:32px;">
+        <a href="{{ url_for('contact') }}" class="btn btn-gold">Demander des informations</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Galerie{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="container">
+    <h1>Galerie photos</h1>
+    <p>Retrouvez en images les temps forts de la vie de l'UFR STA, organisés par albums.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    {% for item in albums_data %}
+    <div class="album-block">
+      <h3>{{ item.album.titre }}</h3>
+      <div class="date">{{ item.album.date_album }} — {{ item.album.description }}</div>
+      {% if item.photos %}
+      <div class="photo-grid">
+        {% for p in item.photos %}
+          <img src="{{ p.url }}" alt="{{ item.album.titre }}">
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="ph-placeholder" style="height:100px;">Aucune photo ajoutée pour cet album</div>
+      {% endif %}
+    </div>
+    {% else %}
+    <p>Aucun album disponible pour le moment.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

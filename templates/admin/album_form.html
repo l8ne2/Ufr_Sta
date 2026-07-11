@@ -1,0 +1,46 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}{{ "Modifier" if item else "Ajouter" }} un album{% endblock %}
+{% block page_title %}{{ "Modifier" if item else "Ajouter" }} un album{% endblock %}
+
+{% block admin_content %}
+<div class="form-card">
+  <form method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="titre">Titre de l'album *</label>
+      <input type="text" id="titre" name="titre" required value="{{ item.titre if item else '' }}">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="date_album">Date *</label>
+        <input type="date" id="date_album" name="date_album" required value="{{ item.date_album if item else '' }}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" name="description">{{ item.description if item else '' }}</textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Photos de l'album</label>
+      {% if existing_photos %}
+        <div class="photo-grid" style="margin-bottom:12px;">
+          {% for p in existing_photos %}
+          <div>
+            <img src="{{ p.url }}" alt="Photo" style="height:110px; margin-bottom:6px;">
+            <label style="font-weight:400; font-size:0.8rem; display:flex; align-items:center; gap:6px;">
+              <input type="checkbox" name="remove_photos" value="{{ p.id }}" style="width:auto;"> Supprimer
+            </label>
+          </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      <label for="photos" style="font-weight:400;">Ajouter des photos (sélection multiple possible)</label>
+      <input type="file" id="photos" name="photos" accept=".jpg,.jpeg,.png,.gif,.webp" multiple>
+      <small style="color:var(--text-muted);">Formats acceptés : JPG, PNG, GIF, WEBP.</small>
+    </div>
+
+    <button type="submit" class="btn btn-gold btn-block">{{ "Enregistrer les modifications" if item else "Créer l'album" }}</button>
+    <a href="{{ url_for('admin_galerie') }}" class="btn btn-block" style="margin-top:10px; text-align:center; border:1px solid var(--grey-line);">Annuler</a>
+  </form>
+</div>
+{% endblock %}

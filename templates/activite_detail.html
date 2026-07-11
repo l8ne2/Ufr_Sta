@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{{ act.titre }}{% endblock %}
+
+{% block content %}
+<div class="detail-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="{{ url_for('activites') }}">Activités</a> / {{ act.titre }}</div>
+    <span class="eyebrow">{{ act.date_act }}</span>
+    <h1>{{ act.titre }}</h1>
+  </div>
+</div>
+
+<section class="detail-body">
+  <div class="container">
+    <div class="content">
+      <ul class="info-list">
+        <li><span>Lieu</span><span>{{ act.lieu }}</span></li>
+        <li><span>Organisateur</span><span>{{ act.organisateur }}</span></li>
+      </ul>
+      <p>{{ act.description }}</p>
+
+      {% if photos %}
+      <h2>Galerie photos</h2>
+      <div class="photo-grid">
+        {% for p in photos %}
+          <img src="{{ p }}" alt="Photo {{ act.titre }}">
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <div style="margin-top:24px;">
+        <a href="{{ url_for('activites') }}" class="card-link">&larr; Retour aux activités</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

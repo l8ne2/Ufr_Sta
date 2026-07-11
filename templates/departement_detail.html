@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}{{ dep.nom }}{% endblock %}
+
+{% block content %}
+<div class="detail-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="{{ url_for('departements') }}">Départements</a> / {{ dep.nom }}</div>
+    <span class="eyebrow">Département</span>
+    <h1>{{ dep.nom }}</h1>
+  </div>
+</div>
+
+<section class="detail-body">
+  <div class="container">
+    <div class="content">
+      <p>{{ dep.description }}</p>
+      <ul class="info-list">
+        <li><span>Responsable</span><span>{{ dep.responsable or "—" }}</span></li>
+        <li><span>Contact</span><span>{{ dep.contact or "—" }}</span></li>
+      </ul>
+
+      <h2>Formations proposées</h2>
+      {% if formations %}
+      <div class="grid grid-2">
+        {% for f in formations %}
+        <div class="card">
+          <div class="card-body">
+            <div class="card-meta">{{ f.niveau }}</div>
+            <h3>{{ f.nom }}</h3>
+            <p>Durée : {{ f.duree }}</p>
+            <a href="{{ url_for('formation_detail', form_id=f.id) }}" class="card-link">Voir le programme &rarr;</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p>Aucune formation enregistrée pour ce département.</p>
+      {% endif %}
+
+      <h2 style="margin-top:40px;">Enseignants</h2>
+      {% if enseignants %}
+      <div class="grid grid-3">
+        {% for e in enseignants %}
+        <div class="card team-card">
+          <div class="team-card-photo-wrap">
+            {% if e.photo %}
+              <img src="{{ e.photo }}" alt="{{ e.nom }}" class="team-card-photo">
+            {% else %}
+              <div class="team-card-photo team-card-photo-placeholder">{{ e.nom[:1] }}</div>
+            {% endif %}
+          </div>
+          <div class="card-body" style="text-align:center;">
+            <h3>{{ e.nom }}</h3>
+            <p>{{ e.grade }}<br>{{ e.email }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p>Aucun enseignant renseigné pour ce département.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

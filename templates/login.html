@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connexion administration | UFR STA</title>
+<link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="login-wrap">
+  <div class="login-card">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo UFR STA">
+    <h2>Espace administration</h2>
+    <p style="color:var(--text-muted); margin-bottom:24px;">Connectez-vous pour gérer le contenu du site.</p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" style="text-align:left;">
+      <div class="form-group">
+        <label for="username">Identifiant</label>
+        <input type="text" id="username" name="username" required autofocus>
+      </div>
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit" class="btn btn-navy btn-block">Se connecter</button>
+    </form>
+    <p style="margin-top:20px; font-size:0.8rem; color:var(--text-muted);">
+      Compte de démonstration : admin / admin123
+    </p>
+    <p style="margin-top:8px;"><a href="{{ url_for('index') }}" style="font-size:0.85rem; color:var(--navy);">&larr; Retour au site</a></p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Activités{% endblock %}
+{% block page_title %}Gestion des activités{% endblock %}
+
+{% block admin_content %}
+<div class="admin-panel">
+  <div class="admin-panel-head">
+    <h2>Toutes les activités ({{ activites|length }})</h2>
+    <a href="{{ url_for('admin_activite_add') }}" class="btn btn-navy btn-sm">+ Ajouter une activité</a>
+  </div>
+  {% if activites %}
+  <table>
+    <thead><tr><th>Titre</th><th>Date</th><th>Lieu</th><th>Actions</th></tr></thead>
+    <tbody>
+      {% for act in activites %}
+      <tr>
+        <td>{{ act.titre }}</td>
+        <td>{{ act.date_act }}</td>
+        <td>{{ act.lieu }}</td>
+        <td class="actions">
+          <a href="{{ url_for('admin_activite_edit', item_id=act.id) }}" class="btn btn-navy btn-sm">✏️ Modifier</a>
+          <form method="POST" action="{{ url_for('admin_activite_delete', item_id=act.id) }}" style="display:inline;" onsubmit="return confirm('Supprimer cette activité ?');">
+            <button type="submit" class="btn btn-danger btn-sm">🗑 Supprimer</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-state">Aucune activité. Cliquez sur « Ajouter » pour publier la première.</div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Galerie{% endblock %}
+{% block page_title %}Gestion de la galerie photos{% endblock %}
+
+{% block admin_content %}
+<div class="admin-panel">
+  <div class="admin-panel-head">
+    <h2>Tous les albums ({{ albums_data|length }})</h2>
+    <a href="{{ url_for('admin_album_add') }}" class="btn btn-navy btn-sm">+ Ajouter un album</a>
+  </div>
+  {% if albums_data %}
+  <table>
+    <thead><tr><th>Titre</th><th>Date</th><th>Photos</th><th>Actions</th></tr></thead>
+    <tbody>
+      {% for item in albums_data %}
+      <tr>
+        <td>{{ item.album.titre }}</td>
+        <td>{{ item.album.date_album }}</td>
+        <td><span class="badge">{{ item.photos|length }} photo(s)</span></td>
+        <td class="actions">
+          <a href="{{ url_for('admin_album_edit', album_id=item.album.id) }}" class="btn btn-navy btn-sm">✏️ Modifier</a>
+          <form method="POST" action="{{ url_for('admin_album_delete', album_id=item.album.id) }}" style="display:inline;" onsubmit="return confirm('Supprimer cet album et ses photos ?');">
+            <button type="submit" class="btn btn-danger btn-sm">🗑 Supprimer</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-state">Aucun album. Cliquez sur « Ajouter » pour créer le premier.</div>
+  {% endif %}
+</div>
+{% endblock %}

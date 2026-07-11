@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <span class="eyebrow">Université Amadou Mahtar Mbow · Dakar</span>
+      <h1>UFR Sciences et Technologies Avancées</h1>
+      <p class="lead">
+        Former les ingénieurs, chercheurs et innovateurs de demain dans les filières
+        MPI (Mathématiques, Physique et Informatique) et SML (Sciences de la Mer et
+        du Littoral). Rejoignez une communauté tournée vers l'excellence scientifique
+        et l'impact sur la société.
+      </p>
+      <div class="hero-actions">
+        <a href="{{ url_for('formations') }}" class="btn btn-gold">Découvrir nos formations</a>
+        <a href="{{ url_for('departements') }}" class="btn btn-outline">Nos départements</a>
+      </div>
+    </div>
+    <div class="hero-logo">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo UFR STA">
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Présentation</span>
+      <h2>Une composante de l'Université Amadou Mahtar Mbow</h2>
+      <p>
+        L'Unité de Formation et de Recherche — Sciences et Technologies Avancées (UFR STA)
+        est une composante de l'Université Amadou Mahtar Mbow (UAM). Elle offre des formations
+        et mène des recherches de haut niveau dans les domaines des sciences et technologies.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Nos départements</span>
+      <h2>Deux départements, un même engagement</h2>
+      <p>Découvrez les départements de l'UFR STA et leurs formations associées.</p>
+    </div>
+    <div class="grid grid-2">
+      {% for dep in departements %}
+      <div class="card">
+        <div class="card-top-bar"></div>
+        <div class="card-body">
+          <h3>{{ dep.nom }}</h3>
+          <p>{{ dep.description }}</p>
+          <a href="{{ url_for('departement_detail', dep_id=dep.id) }}" class="card-link">Voir le département &rarr;</a>
+        </div>
+      </div>
+      {% else %}
+      <p>Aucun département disponible pour le moment.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Actualités</span>
+      <h2>Dernières actualités de l'UFR</h2>
+      <p>Restez informés des annonces, événements et résultats de l'UFR STA.</p>
+    </div>
+    <div class="grid grid-3">
+      {% for a in actualites %}
+      <div class="card">
+        {% if a.photo %}
+          <img src="{{ a.photo }}" alt="{{ a.titre }}" class="card-photo">
+        {% else %}
+          <div class="card-photo-placeholder">UFR STA</div>
+        {% endif %}
+        <div class="card-body">
+          <div class="card-meta">{{ a.date_pub }}</div>
+          <h3>{{ a.titre }}</h3>
+          <p>{{ a.description[:110] }}{% if a.description|length > 110 %}…{% endif %}</p>
+          <a href="{{ url_for('actualite_detail', news_id=a.id) }}" class="card-link">Lire la suite &rarr;</a>
+        </div>
+      </div>
+      {% else %}
+      <p>Aucune actualité publiée pour le moment.</p>
+      {% endfor %}
+    </div>
+    <div style="text-align:center; margin-top:32px;">
+      <a href="{{ url_for('actualites') }}" class="btn btn-navy">Toutes les actualités</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

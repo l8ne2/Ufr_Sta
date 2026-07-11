@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Formations{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="container">
+    <h1>Nos formations</h1>
+    <p>Licences et Masters proposés par l'UFR STA.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="grid grid-3">
+      {% for f in formations %}
+      <div class="card">
+        <div class="card-top-bar"></div>
+        <div class="card-body">
+          <div class="card-meta">{{ f.niveau }} · {{ f.duree }}</div>
+          <h3>{{ f.nom }}</h3>
+          <p>{{ f.departement_nom or "Département non renseigné" }}</p>
+          <a href="{{ url_for('formation_detail', form_id=f.id) }}" class="card-link">Voir le programme &rarr;</a>
+        </div>
+      </div>
+      {% else %}
+      <p>Aucune formation disponible pour le moment.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

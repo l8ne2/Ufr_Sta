@@ -1,0 +1,51 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}{{ "Modifier" if item else "Ajouter" }} un enseignant{% endblock %}
+{% block page_title %}{{ "Modifier" if item else "Ajouter" }} un enseignant{% endblock %}
+
+{% block admin_content %}
+<div class="form-card">
+  <form method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="nom">Nom complet *</label>
+      <input type="text" id="nom" name="nom" required value="{{ item.nom if item else '' }}">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="grade">Grade *</label>
+        <input type="text" id="grade" name="grade" required placeholder="ex : Maître de Conférences" value="{{ item.grade if item else '' }}">
+      </div>
+      <div class="form-group">
+        <label for="departement_id">Département *</label>
+        <select id="departement_id" name="departement_id" required>
+          {% for d in departements %}
+          <option value="{{ d.id }}" {{ "selected" if item and item.departement_id == d.id }}>{{ d.nom }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email professionnel *</label>
+      <input type="email" id="email" name="email" required value="{{ item.email if item else '' }}">
+    </div>
+    <div class="form-group">
+      <label for="domaines_recherche">Domaines de recherche</label>
+      <input type="text" id="domaines_recherche" name="domaines_recherche" value="{{ item.domaines_recherche if item else '' }}">
+    </div>
+
+    <div class="form-group">
+      <label for="photo">Photo (optionnel)</label>
+      {% if item and item.photo %}
+        <img src="{{ item.photo }}" alt="Photo actuelle" style="max-width:160px; border-radius:50%; margin-bottom:10px; display:block;">
+        <label style="font-weight:400; display:flex; align-items:center; gap:6px; margin-bottom:10px;">
+          <input type="checkbox" name="remove_photo" value="1" style="width:auto;"> Supprimer la photo actuelle
+        </label>
+      {% endif %}
+      <input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png,.gif,.webp">
+      <small style="color:var(--text-muted);">Formats acceptés : JPG, PNG, GIF, WEBP.</small>
+    </div>
+
+    <button type="submit" class="btn btn-gold btn-block">{{ "Enregistrer les modifications" if item else "Ajouter l'enseignant" }}</button>
+    <a href="{{ url_for('admin_enseignants') }}" class="btn btn-block" style="margin-top:10px; text-align:center; border:1px solid var(--grey-line);">Annuler</a>
+  </form>
+</div>
+{% endblock %}

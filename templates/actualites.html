@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Actualités{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="container">
+    <h1>Actualités</h1>
+    <p>Séminaires, conférences, soutenances, appels à candidature et résultats.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="grid grid-3">
+      {% for a in actualites %}
+      <div class="card">
+        {% if a.photo %}
+          <img src="{{ a.photo }}" alt="{{ a.titre }}" class="card-photo">
+        {% else %}
+          <div class="card-photo-placeholder">UFR STA</div>
+        {% endif %}
+        <div class="card-body">
+          <div class="card-meta">{{ a.date_pub }}</div>
+          <h3>{{ a.titre }}</h3>
+          <p>{{ a.description[:110] }}{% if a.description|length > 110 %}…{% endif %}</p>
+          <a href="{{ url_for('actualite_detail', news_id=a.id) }}" class="card-link">Lire la suite &rarr;</a>
+        </div>
+      </div>
+      {% else %}
+      <p>Aucune actualité publiée pour le moment.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

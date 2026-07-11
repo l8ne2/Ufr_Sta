@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Enseignants{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="container">
+    <h1>Nos enseignants</h1>
+    <p>Une équipe pédagogique engagée dans la recherche et la formation.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="grid grid-3">
+      {% for e in enseignants %}
+      <div class="card team-card">
+        <div class="team-card-photo-wrap">
+          {% if e.photo %}
+            <img src="{{ e.photo }}" alt="{{ e.nom }}" class="team-card-photo">
+          {% else %}
+            <div class="team-card-photo team-card-photo-placeholder">{{ e.nom[:1] }}</div>
+          {% endif %}
+        </div>
+        <div class="card-body" style="text-align:center;">
+          <div class="card-meta">{{ e.grade }}</div>
+          <h3>{{ e.nom }}</h3>
+          <p>
+            {{ e.departement_nom or "—" }}<br>
+            {{ e.email }}<br>
+            <em>{{ e.domaines_recherche }}</em>
+          </p>
+        </div>
+      </div>
+      {% else %}
+      <p>Aucun enseignant renseigné pour le moment.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

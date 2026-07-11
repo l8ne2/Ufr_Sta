@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}UFR STA{% endblock %} | Université Amadou Mahtar Mbow</title>
+<meta name="description" content="Site officiel de l'UFR Sciences et Technologies Avancées (UFR STA) de l'Université Amadou Mahtar Mbow de Dakar.">
+<link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="{{ url_for('index') }}" class="brand">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo UFR STA">
+      <div class="brand-text">
+        <div class="ufr">UFR STA</div>
+        <div class="full">Sciences et Technologies Avancées</div>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="{{ url_for('index') }}" class="{{ 'active' if request.endpoint == 'index' }}">Accueil</a></li>
+      <li><a href="{{ url_for('departements') }}" class="{{ 'active' if request.endpoint in ['departements','departement_detail'] }}">Départements</a></li>
+      <li><a href="{{ url_for('formations') }}" class="{{ 'active' if request.endpoint in ['formations','formation_detail'] }}">Formations</a></li>
+      <li><a href="{{ url_for('actualites') }}" class="{{ 'active' if request.endpoint in ['actualites','actualite_detail'] }}">Actualités</a></li>
+      <li><a href="{{ url_for('activites') }}" class="{{ 'active' if request.endpoint in ['activites','activite_detail'] }}">Activités</a></li>
+      <li><a href="{{ url_for('galerie') }}" class="{{ 'active' if request.endpoint == 'galerie' }}">Galerie</a></li>
+      <li><a href="{{ url_for('contact') }}" class="{{ 'active' if request.endpoint == 'contact' }}">Contact</a></li>
+    </ul>
+
+    <div class="nav-cta">
+      <a href="{{ url_for('contact') }}" class="btn btn-gold btn-sm">Nous contacter</a>
+      <button class="nav-toggle" aria-label="Ouvrir le menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="container" style="padding-top: 20px;">
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo UFR STA">
+          <span>UFR STA</span>
+        </div>
+        <p>Université Amadou Mahtar Mbow de Dakar — UFR Sciences et Technologies Avancées.<br>Innover · Exceller · Impacter.</p>
+        <div class="socials">
+          <a href="#" aria-label="Facebook">FB</a>
+          <a href="#" aria-label="LinkedIn">IN</a>
+          <a href="#" aria-label="X / Twitter">X</a>
+          <a href="#" aria-label="YouTube">YT</a>
+        </div>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="{{ url_for('departements') }}">Départements</a></li>
+          <li><a href="{{ url_for('formations') }}">Formations</a></li>
+          <li><a href="{{ url_for('actualites') }}">Actualités</a></li>
+          <li><a href="{{ url_for('activites') }}">Activités</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Ressources</h4>
+        <ul>
+          <li><a href="{{ url_for('galerie') }}">Galerie photos</a></li>
+          <li><a href="{{ url_for('enseignants') }}">Enseignants</a></li>
+          <li><a href="{{ url_for('contact') }}">Contact</a></li>
+          <li><a href="{{ url_for('login') }}">Espace administration</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>Campus UAM, Diamniadio, Dakar</li>
+          <li>ufr-sta@uam.edu.sn</li>
+          <li>+221 33 000 00 00</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; {{ current_year }} UFR STA — Université Amadou Mahtar Mbow. Tous droits réservés.</span>
+      <span>Projet réalisé dans le cadre du cours de Programmation Web — Dr Lamine YADE</span>
+    </div>
+  </div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

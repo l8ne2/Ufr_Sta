@@ -1,0 +1,35 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Enseignants{% endblock %}
+{% block page_title %}Gestion des enseignants{% endblock %}
+
+{% block admin_content %}
+<div class="admin-panel">
+  <div class="admin-panel-head">
+    <h2>Tous les enseignants ({{ enseignants|length }})</h2>
+    <a href="{{ url_for('admin_enseignant_add') }}" class="btn btn-navy btn-sm">+ Ajouter un enseignant</a>
+  </div>
+  {% if enseignants %}
+  <table>
+    <thead><tr><th>Nom</th><th>Grade</th><th>Département</th><th>Email</th><th>Actions</th></tr></thead>
+    <tbody>
+      {% for e in enseignants %}
+      <tr>
+        <td>{{ e.nom }}</td>
+        <td>{{ e.grade }}</td>
+        <td>{{ e.departement_nom or "—" }}</td>
+        <td>{{ e.email }}</td>
+        <td class="actions">
+          <a href="{{ url_for('admin_enseignant_edit', item_id=e.id) }}" class="btn btn-navy btn-sm">✏️ Modifier</a>
+          <form method="POST" action="{{ url_for('admin_enseignant_delete', item_id=e.id) }}" style="display:inline;" onsubmit="return confirm('Supprimer cet enseignant ?');">
+            <button type="submit" class="btn btn-danger btn-sm">🗑 Supprimer</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-state">Aucun enseignant. Cliquez sur « Ajouter » pour créer le premier.</div>
+  {% endif %}
+</div>
+{% endblock %}

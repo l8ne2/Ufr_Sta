@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Administration{% endblock %} | UFR STA</title>
+<link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="admin-wrap">
+  <aside class="admin-sidebar">
+    <div class="brand-admin">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo UFR STA">
+      <span>UFR STA — Admin</span>
+    </div>
+    <nav class="admin-nav">
+      <a href="{{ url_for('admin_dashboard') }}" class="{{ 'active' if request.endpoint == 'admin_dashboard' }}">📊 Tableau de bord</a>
+      <a href="{{ url_for('admin_actualites') }}" class="{{ 'active' if request.endpoint.startswith('admin_actualite') }}">📰 Actualités</a>
+      <a href="{{ url_for('admin_activites') }}" class="{{ 'active' if request.endpoint.startswith('admin_activite') }}">🎉 Activités</a>
+      <a href="{{ url_for('admin_formations') }}" class="{{ 'active' if request.endpoint.startswith('admin_formation') }}">🎓 Formations</a>
+      <a href="{{ url_for('admin_departements') }}" class="{{ 'active' if request.endpoint.startswith('admin_departement') }}">🏛 Départements</a>
+      <a href="{{ url_for('admin_enseignants') }}" class="{{ 'active' if request.endpoint.startswith('admin_enseignant') }}">👨‍🏫 Enseignants</a>
+      <a href="{{ url_for('admin_galerie') }}" class="{{ 'active' if request.endpoint.startswith('admin_galerie') or request.endpoint.startswith('admin_album') }}">🖼 Galerie</a>
+      <a href="{{ url_for('admin_messages') }}" class="{{ 'active' if request.endpoint.startswith('admin_message') }}">📩 Messages</a>
+      <a href="{{ url_for('index') }}" target="_blank">🌐 Voir le site</a>
+      <a href="{{ url_for('logout') }}">🚪 Déconnexion</a>
+    </nav>
+  </aside>
+
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <h1>{% block page_title %}Administration{% endblock %}</h1>
+      <span style="font-size:0.85rem; color:var(--text-muted);">Connecté : {{ session.get('admin_username', '') }}</span>
+    </div>
+    <div class="admin-content">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      {% block admin_content %}{% endblock %}
+    </div>
+  </div>
+</div>
+</body>
+</html>

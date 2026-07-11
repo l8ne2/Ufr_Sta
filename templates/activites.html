@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Activités{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="container">
+    <h1>Journal des activités</h1>
+    <p>Visites, conférences, ateliers, formations, compétitions et sorties pédagogiques de l'UFR STA.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="grid grid-3">
+      {% for act in activites %}
+      {% set premiere_photo = act.photos.split('\n')[0] if act.photos else '' %}
+      <div class="card">
+        {% if premiere_photo %}
+          <img src="{{ premiere_photo }}" alt="{{ act.titre }}" class="card-photo">
+        {% else %}
+          <div class="card-photo-placeholder">UFR STA</div>
+        {% endif %}
+        <div class="card-body">
+          <div class="card-meta">{{ act.date_act }} · {{ act.lieu }}</div>
+          <h3>{{ act.titre }}</h3>
+          <p>{{ act.description[:110] }}{% if act.description|length > 110 %}…{% endif %}</p>
+          <a href="{{ url_for('activite_detail', act_id=act.id) }}" class="card-link">Voir le détail &rarr;</a>
+        </div>
+      </div>
+      {% else %}
+      <p>Aucune activité publiée pour le moment.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

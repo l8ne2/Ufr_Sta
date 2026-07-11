@@ -1,0 +1,33 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Actualités{% endblock %}
+{% block page_title %}Gestion des actualités{% endblock %}
+
+{% block admin_content %}
+<div class="admin-panel">
+  <div class="admin-panel-head">
+    <h2>Toutes les actualités ({{ actualites|length }})</h2>
+    <a href="{{ url_for('admin_actualite_add') }}" class="btn btn-navy btn-sm">+ Ajouter une actualité</a>
+  </div>
+  {% if actualites %}
+  <table>
+    <thead><tr><th>Titre</th><th>Date</th><th>Actions</th></tr></thead>
+    <tbody>
+      {% for a in actualites %}
+      <tr>
+        <td>{{ a.titre }}</td>
+        <td>{{ a.date_pub }}</td>
+        <td class="actions">
+          <a href="{{ url_for('admin_actualite_edit', item_id=a.id) }}" class="btn btn-navy btn-sm">✏️ Modifier</a>
+          <form method="POST" action="{{ url_for('admin_actualite_delete', item_id=a.id) }}" style="display:inline;" onsubmit="return confirm('Supprimer cette actualité ?');">
+            <button type="submit" class="btn btn-danger btn-sm">🗑 Supprimer</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-state">Aucune actualité. Cliquez sur « Ajouter » pour publier la première.</div>
+  {% endif %}
+</div>
+{% endblock %}

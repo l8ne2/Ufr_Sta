@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Départements{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="container">
+    <h1>Nos départements</h1>
+    <p>L'UFR STA s'organise autour de deux départements complémentaires : MIM et SMU.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="grid grid-2">
+      {% for dep in departements %}
+      <div class="card">
+        <div class="card-top-bar"></div>
+        <div class="card-body">
+          <h3>{{ dep.nom }}</h3>
+          <p>{{ dep.description }}</p>
+          <p style="font-size:0.85rem; color:var(--text-muted);">
+            <strong>Responsable :</strong> {{ dep.responsable or "—" }}<br>
+            <strong>Contact :</strong> {{ dep.contact or "—" }}
+          </p>
+          <a href="{{ url_for('departement_detail', dep_id=dep.id) }}" class="card-link">Voir les formations &rarr;</a>
+        </div>
+      </div>
+      {% else %}
+      <p>Aucun département disponible pour le moment.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

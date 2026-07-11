@@ -1,0 +1,66 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Tableau de bord{% endblock %}
+{% block page_title %}Tableau de bord{% endblock %}
+
+{% block admin_content %}
+
+<div class="stat-cards">
+  <div class="stat-card"><div class="num">{{ stats.actualites }}</div><div class="label">Actualités</div></div>
+  <div class="stat-card"><div class="num">{{ stats.activites }}</div><div class="label">Activités</div></div>
+  <div class="stat-card"><div class="num">{{ stats.formations }}</div><div class="label">Formations</div></div>
+  <div class="stat-card"><div class="num">{{ stats.departements }}</div><div class="label">Départements</div></div>
+  <div class="stat-card"><div class="num">{{ stats.enseignants }}</div><div class="label">Enseignants</div></div>
+  <div class="stat-card"><div class="num">{{ stats.albums }}</div><div class="label">Albums photos</div></div>
+  <div class="stat-card"><div class="num">{{ stats.messages }}</div><div class="label">Messages reçus</div></div>
+</div>
+
+<div class="admin-panel">
+  <div class="admin-panel-head">
+    <h2>Dernières actualités</h2>
+    <a href="{{ url_for('admin_actualite_add') }}" class="btn btn-navy btn-sm">+ Ajouter</a>
+  </div>
+  {% if dernieres_actus %}
+  <table>
+    <thead><tr><th>Titre</th><th>Date</th><th>Actions</th></tr></thead>
+    <tbody>
+      {% for a in dernieres_actus %}
+      <tr>
+        <td>{{ a.titre }}</td>
+        <td>{{ a.date_pub }}</td>
+        <td class="actions">
+          <a href="{{ url_for('admin_actualite_edit', item_id=a.id) }}" class="btn btn-navy btn-sm">✏️ Modifier</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-state">Aucune actualité pour le moment.</div>
+  {% endif %}
+</div>
+
+<div class="admin-panel">
+  <div class="admin-panel-head">
+    <h2>Derniers messages de contact</h2>
+    <a href="{{ url_for('admin_messages') }}" class="btn btn-navy btn-sm">Voir tout</a>
+  </div>
+  {% if derniers_messages %}
+  <table>
+    <thead><tr><th>Nom</th><th>Email</th><th>Sujet</th><th>Date</th></tr></thead>
+    <tbody>
+      {% for m in derniers_messages %}
+      <tr>
+        <td>{{ m.nom }}</td>
+        <td>{{ m.email }}</td>
+        <td>{{ m.sujet or "—" }}</td>
+        <td>{{ m.date_envoi }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-state">Aucun message reçu pour le moment.</div>
+  {% endif %}
+</div>
+
+{% endblock %}
