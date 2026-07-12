@@ -18,7 +18,7 @@
       {% if item.photos %}
       <div class="photo-grid">
         {% for p in item.photos %}
-          <img src="{{ p.url }}" alt="{{ item.album.titre }}">
+          <img src="{{ p.url }}" alt="{{ item.album.titre }}" class="lightbox-trigger" data-full="{{ p.url }}">
         {% endfor %}
       </div>
       {% else %}
@@ -30,4 +30,9 @@
     {% endfor %}
   </div>
 </section>
+<!-- Lightbox : agrandissement de photo au clic -->
+<div id="lightbox-overlay" class="lightbox-overlay">
+  <button type="button" class="lightbox-close" aria-label="Fermer">&times;</button>
+  <img id="lightbox-image" src="" alt="Photo agrandie">
+</div>
 {% endblock %}

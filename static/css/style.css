@@ -323,6 +323,39 @@ main { padding-top: 76px; }
   border: 1px dashed var(--grey-line);
 }
 .album-block { margin-bottom: 48px; }
+/* ---------- Lightbox (agrandissement photo galerie) ---------- */
+.lightbox-trigger { cursor: zoom-in; transition: opacity 0.15s ease; }
+.lightbox-trigger:hover { opacity: 0.88; }
+
+.lightbox-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 20, 35, 0.92);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+.lightbox-overlay.is-open { display: flex; }
+.lightbox-overlay img {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: var(--radius);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 2.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.lightbox-close:hover { color: var(--gold); }
 .album-block h3 { margin-bottom: 4px; }
 .album-block .date { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 18px; }
 
