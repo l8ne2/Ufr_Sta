@@ -395,7 +395,7 @@ def contact():
             flash("Merci de remplir tous les champs obligatoires.", "danger")
         else:
             db = get_db()
-           db.execute(
+            db.execute(
                 """INSERT INTO messages (nom, email, telephone, sujet, message, date_envoi)
                    VALUES (?,?,?,?,?,?)""",
                 (nom, email, telephone, sujet, message, datetime.now().strftime("%Y-%m-%d %H:%M")),
