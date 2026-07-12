@@ -73,6 +73,7 @@ CREATE TABLE IF NOT EXISTS messages (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nom TEXT NOT NULL,
     email TEXT NOT NULL,
+    telephone TEXT,
     sujet TEXT,
     message TEXT NOT NULL,
     date_envoi TEXT
