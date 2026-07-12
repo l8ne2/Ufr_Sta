@@ -83,8 +83,7 @@ pour que les changements soient pris en compte.
 - Identifiant : `admin`
 - Mot de passe : `admin123`
 
-> ⚠️ Pensez à changer ce mot de passe et la clé secrète (`SECRET_KEY`
-> dans `app.py`) avant tout déploiement en production.
+
 
 ## 5. Arborescence du projet
 
@@ -165,19 +164,6 @@ Projet développé à deux avec :
 - Une branche dédiée par fonctionnalité
 - Des Pull Requests relues puis fusionnées sur `main`
 
-| Fonctionnalité | Branche | Réalisée par |
-|---|---|---|
-| Galerie photos avec lightbox (agrandissement au clic) | `feature/galerie-lightbox` | Aliou BA |
-| Champ téléphone optionnel sur le formulaire de contact | `feature/contact-telephone` | Abdoul Guisse |
 
-Voir aussi `TACHES.md` pour le détail complet de la répartition et des
-difficultés rencontrées.
 
-## 8. Captures d'écran
 
-_À compléter avec des captures d'écran des pages principales (accueil,
-départements, galerie avec lightbox, tableau de bord admin) avant la
-soutenance._
-
----
-Dr Lamine Yade, UAM@2026
