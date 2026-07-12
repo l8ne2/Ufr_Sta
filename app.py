@@ -387,6 +387,7 @@ def contact():
     if request.method == "POST":
         nom = request.form.get("nom", "").strip()
         email = request.form.get("email", "").strip()
+        telephone = request.form.get("telephone", "").strip()
         sujet = request.form.get("sujet", "").strip()
         message = request.form.get("message", "").strip()
 
@@ -394,10 +395,10 @@ def contact():
             flash("Merci de remplir tous les champs obligatoires.", "danger")
         else:
             db = get_db()
-            db.execute(
-                """INSERT INTO messages (nom, email, sujet, message, date_envoi)
-                   VALUES (?,?,?,?,?)""",
-                (nom, email, sujet, message, datetime.now().strftime("%Y-%m-%d %H:%M")),
+           db.execute(
+                """INSERT INTO messages (nom, email, telephone, sujet, message, date_envoi)
+                   VALUES (?,?,?,?,?,?)""",
+                (nom, email, telephone, sujet, message, datetime.now().strftime("%Y-%m-%d %H:%M")),
             )
             db.commit()
             flash("Votre message a bien été envoyé. Merci de nous avoir contactés !", "success")
